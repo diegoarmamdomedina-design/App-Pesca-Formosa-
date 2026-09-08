@@ -16,4 +16,5 @@ while ($fila = $resultado->fetch_assoc()){
 
 echo json_encode($caminos, JSON_UNESCAPED_UNICODE);
 
+
 ?>;
