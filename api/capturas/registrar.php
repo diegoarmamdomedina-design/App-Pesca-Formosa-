@@ -1,61 +1,71 @@
 <?php
 
-header("Content-Type: application/json; charset=UTF-8");
+require_once __DIR__ . "/../../config/respuesta.php";
+require_once __DIR__ . "/../../config/database.php";
+require_once __DIR__ . "/../../config/auth.php";
 
-require_once "../../config/database.php";
-require_once "../../config/auth.php";
+manejarPreflight();
 
 $usuario = obtenerUsuarioAutenticado();
+$datos = leerJson();
 
-$datos = json_decode(file_get_contents("php://input"), true);
+$id_especie = $datos["especie_id"] ?? $datos["id_especie"] ?? null;
+$id_lugar = $datos["lugar_id"] ?? $datos["id_lugar"] ?? null;
+$peso_kg = $datos["peso"] ?? $datos["peso_kg"] ?? null;
+$observaciones = (string) ($datos["observaciones"] ?? "");
 
-$id_especie = $datos["id_especie"] ?? null;
-$id_lugar = $datos["id_lugar"] ?? null;
-$peso_kg = $datos["peso_kg"] ?? null;
-$observaciones = $datos["observaciones"] ?? "";
-
-if ($id_especie == null) {
-    http_response_code(400);
-
-    echo json_encode([
+if ($id_especie === null || $id_especie === "") {
+    enviarJson([
         "ok" => false,
         "mensaje" => "La especie es obligatoria"
-    ]);
-
-    exit;
+    ], 400);
 }
 
-$sql = "INSERT INTO capturas
-        (id_usuario, id_especie, id_lugar, peso_kg, observaciones)
-        VALUES (?, ?, ?, ?, ?)";
+$id_usuario = (int) $usuario->id_usuario;
+$id_especie = (int) $id_especie;
+$fecha_captura = date("Y-m-d H:i:s");
+$tiene_lugar = !($id_lugar === null || $id_lugar === "");
+$tiene_peso = !($peso_kg === null || $peso_kg === "");
 
-$stmt = $conn->prepare($sql);
-
-$stmt->bind_param(
-    "iiids",
-    $usuario->id_usuario,
-    $id_especie,
-    $id_lugar,
-    $peso_kg,
-    $observaciones
-);
-
-if ($stmt->execute()) {
-
-    http_response_code(201);
-
-    echo json_encode([
-        "ok" => true,
-        "mensaje" => "Captura registrada correctamente",
-        "id_captura" => $stmt->insert_id
-    ]);
-
+if ($tiene_lugar && $tiene_peso) {
+    $id_lugar = (int) $id_lugar;
+    $peso_kg = (float) $peso_kg;
+    $sql = "INSERT INTO capturas
+            (id_usuario, id_especie, id_lugar, peso_kg, observaciones, fecha_captura)
+            VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iiidss", $id_usuario, $id_especie, $id_lugar, $peso_kg, $observaciones, $fecha_captura);
+} elseif ($tiene_lugar) {
+    $id_lugar = (int) $id_lugar;
+    $sql = "INSERT INTO capturas
+            (id_usuario, id_especie, id_lugar, peso_kg, observaciones, fecha_captura)
+            VALUES (?, ?, ?, NULL, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iiiss", $id_usuario, $id_especie, $id_lugar, $observaciones, $fecha_captura);
+} elseif ($tiene_peso) {
+    $peso_kg = (float) $peso_kg;
+    $sql = "INSERT INTO capturas
+            (id_usuario, id_especie, id_lugar, peso_kg, observaciones, fecha_captura)
+            VALUES (?, ?, NULL, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iidss", $id_usuario, $id_especie, $peso_kg, $observaciones, $fecha_captura);
 } else {
+    $sql = "INSERT INTO capturas
+            (id_usuario, id_especie, id_lugar, peso_kg, observaciones, fecha_captura)
+            VALUES (?, ?, NULL, NULL, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iiss", $id_usuario, $id_especie, $observaciones, $fecha_captura);
+}
 
-    http_response_code(500);
-
-    echo json_encode([
+if (!$stmt->execute()) {
+    enviarJson([
         "ok" => false,
         "mensaje" => "No se pudo registrar la captura"
-    ]);
+    ], 500);
 }
+
+enviarJson([
+    "ok" => true,
+    "mensaje" => "Captura registrada correctamente",
+    "id" => $stmt->insert_id
+], 201);

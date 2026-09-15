@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /AppPescaFormosa/api/
+
+DirectorySlash Off
+Options -Indexes
+
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+RewriteRule ^index\.php$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]

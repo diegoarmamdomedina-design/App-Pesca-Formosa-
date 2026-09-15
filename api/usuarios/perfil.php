@@ -1,12 +1,13 @@
 <?php
 
-header("Content-Type: application/json; charset=UTF-8");
+require_once __DIR__ . "/../../config/respuesta.php";
+require_once __DIR__ . "/../../config/auth.php";
 
-require_once "../../config/auth.php";
+manejarPreflight();
 
 $usuario = obtenerUsuarioAutenticado();
 
-echo json_encode([
+enviarJson([
     "ok" => true,
     "mensaje" => "Acceso autorizado",
     "usuario" => [
@@ -14,4 +15,4 @@ echo json_encode([
         "email" => $usuario->email,
         "rol" => $usuario->rol
     ]
-], JSON_UNESCAPED_UNICODE);
+]);

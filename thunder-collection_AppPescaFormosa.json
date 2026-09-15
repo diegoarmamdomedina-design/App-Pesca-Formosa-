@@ -1,0 +1,345 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "App Pesca Formosa",
+  "collectionId": "pesca-formosa-api",
+  "dateExported": "2026-09-14T19:00:00.000Z",
+  "version": "1.2",
+  "folders": [
+    { "_id": "f-auth", "name": "Auth", "containerId": "", "created": "2026-09-14T19:00:00.000Z", "sortNum": 10000 },
+    { "_id": "f-catalogo", "name": "Catalogo", "containerId": "", "created": "2026-09-14T19:00:00.000Z", "sortNum": 20000 },
+    { "_id": "f-usuario", "name": "Usuario autenticado", "containerId": "", "created": "2026-09-14T19:00:00.000Z", "sortNum": 30000 },
+    { "_id": "f-admin", "name": "Admin", "containerId": "", "created": "2026-09-14T19:00:00.000Z", "sortNum": 40000 },
+    { "_id": "f-clima", "name": "Clima y luna", "containerId": "", "created": "2026-09-14T19:00:00.000Z", "sortNum": 50000 }
+  ],
+  "requests": [
+    {
+      "_id": "r-register",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-auth",
+      "name": "POST /auth/register",
+      "url": "{{baseUrl}}/auth/register",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"nombre\": \"Diego Medina\",\n  \"email\": \"diego.thunder@pescaformosa.local\",\n  \"password\": \"Clave1234\"\n}"
+      }
+    },
+    {
+      "_id": "r-login",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-auth",
+      "name": "POST /auth/login",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "sortNum": 11000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"admin@pescaformosa.local\",\n  \"password\": \"Admin1234\"\n}"
+      }
+    },
+    {
+      "_id": "r-login-401",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-auth",
+      "name": "POST /auth/login 401",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "sortNum": 12000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"admin@pescaformosa.local\",\n  \"password\": \"incorrecta\"\n}"
+      }
+    },
+    {
+      "_id": "r-google",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-auth",
+      "name": "POST /auth/google",
+      "url": "{{baseUrl}}/auth/google",
+      "method": "POST",
+      "sortNum": 14000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"id_token\": \"ID_TOKEN_DE_GOOGLE\"\n}"
+      }
+    },
+    {
+      "_id": "r-forgot",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-auth",
+      "name": "POST /auth/forgot-password",
+      "url": "{{baseUrl}}/auth/forgot-password",
+      "method": "POST",
+      "sortNum": 13000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"pescador@pescaformosa.local\"\n}"
+      }
+    },
+    {
+      "_id": "r-lugares",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-catalogo",
+      "name": "GET /lugares",
+      "url": "{{baseUrl}}/lugares",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-lugar-id",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-catalogo",
+      "name": "GET /lugares/:id",
+      "url": "{{baseUrl}}/lugares/1",
+      "method": "GET",
+      "sortNum": 21000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-especies",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-catalogo",
+      "name": "GET /especies",
+      "url": "{{baseUrl}}/especies",
+      "method": "GET",
+      "sortNum": 22000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-caminos",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-catalogo",
+      "name": "GET /caminos",
+      "url": "{{baseUrl}}/caminos",
+      "method": "GET",
+      "sortNum": 23000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-camino-id",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-catalogo",
+      "name": "GET /caminos/:id",
+      "url": "{{baseUrl}}/caminos/1",
+      "method": "GET",
+      "sortNum": 24000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-capturas",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-usuario",
+      "name": "POST /capturas",
+      "url": "{{baseUrl}}/capturas",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"especie_id\": 1,\n  \"peso\": 2.5,\n  \"lugar_id\": 1\n}"
+      }
+    },
+    {
+      "_id": "r-capturas-mis",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-usuario",
+      "name": "GET /capturas/mis",
+      "url": "{{baseUrl}}/capturas/mis",
+      "method": "GET",
+      "sortNum": 31000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [],
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "r-rep-camino",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-usuario",
+      "name": "POST /reportes/camino",
+      "url": "{{baseUrl}}/reportes/camino",
+      "method": "POST",
+      "sortNum": 32000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"camino_id\": 1,\n  \"estado\": \"barro\",\n  \"descripcion\": \"Acceso con barro tras la lluvia\"\n}"
+      }
+    },
+    {
+      "_id": "r-rep-agua",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-usuario",
+      "name": "POST /reportes/agua",
+      "url": "{{baseUrl}}/reportes/agua",
+      "method": "POST",
+      "sortNum": 33000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"lugar_id\": 1,\n  \"nivel\": \"creciente\",\n  \"descripcion\": \"Nivel alto en la laguna\"\n}"
+      }
+    },
+    {
+      "_id": "r-valoracion",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-usuario",
+      "name": "POST /valoraciones",
+      "url": "{{baseUrl}}/valoraciones",
+      "method": "POST",
+      "sortNum": 34000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"entidad_tipo\": \"lugar\",\n  \"entidad_id\": 1,\n  \"puntaje\": 4,\n  \"comentario\": \"Buen lugar para pescar\"\n}"
+      }
+    },
+    {
+      "_id": "r-admin-get",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-admin",
+      "name": "GET /admin/info-util",
+      "url": "{{baseUrl}}/admin/info-util",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [],
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "r-admin-post",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-admin",
+      "name": "POST /admin/info-util",
+      "url": "{{baseUrl}}/admin/info-util",
+      "method": "POST",
+      "sortNum": 41000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"tipo\": \"aviso\",\n  \"titulo\": \"Creciente en el Paraguay\",\n  \"contenido\": \"Se recomienda no transitar caminos rurales anegados.\"\n}"
+      }
+    },
+    {
+      "_id": "r-admin-put",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-admin",
+      "name": "PUT /admin/info-util/:id",
+      "url": "{{baseUrl}}/admin/info-util/1",
+      "method": "PUT",
+      "sortNum": 42000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "auth": { "type": "bearer", "bearer": "{{token}}" },
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"titulo\": \"Veda de dorado actualizada\",\n  \"contenido\": \"Consultar cupos vigentes antes de pescar.\"\n}"
+      }
+    },
+    {
+      "_id": "r-admin-del",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-admin",
+      "name": "DELETE /admin/info-util/:id",
+      "url": "{{baseUrl}}/admin/info-util/1",
+      "method": "DELETE",
+      "sortNum": 43000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": [],
+      "auth": { "type": "bearer", "bearer": "{{token}}" }
+    },
+    {
+      "_id": "r-clima-actual",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-clima",
+      "name": "GET /clima/actual",
+      "url": "{{baseUrl}}/clima/actual?lat=-26.1849&lng=-58.1731",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-clima-pron",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-clima",
+      "name": "GET /clima/pronostico",
+      "url": "{{baseUrl}}/clima/pronostico?lat=-26.1849&lng=-58.1731",
+      "method": "GET",
+      "sortNum": 51000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-clima-alertas",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-clima",
+      "name": "GET /clima/alertas",
+      "url": "{{baseUrl}}/clima/alertas?lat=-26.1849&lng=-58.1731",
+      "method": "GET",
+      "sortNum": 52000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    },
+    {
+      "_id": "r-luna",
+      "colId": "pesca-formosa-api",
+      "containerId": "f-clima",
+      "name": "GET /luna/fases",
+      "url": "{{baseUrl}}/luna/fases?mes=9&anio=2026",
+      "method": "GET",
+      "sortNum": 53000,
+      "created": "2026-09-14T19:00:00.000Z",
+      "modified": "2026-09-14T19:00:00.000Z",
+      "headers": []
+    }
+  ]
+]
